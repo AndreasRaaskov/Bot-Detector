@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest tests/test_api.py::TestAnalyzeEndpoint::test_analyze_handle_validation -v -s)",
+      "Bash(python -m pytest tests/test_api.py::TestCORSHeaders::test_cors_headers_present -v)",
+      "Bash(python -m pytest tests/test_real_integration.py::TestRealBotDetection::test_known_human_account -v -s)"
+    ],
+    "deny": []
+  }
+}

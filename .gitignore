@@ -1,0 +1,146 @@
+# Bot Detector .gitignore
+# This file tells git which files and folders to never commit to the repository
+# This is CRITICAL for keeping secrets and credentials safe!
+
+# =================================================================
+# CREDENTIALS AND SECRETS (NEVER COMMIT THESE!)
+# =================================================================
+# Environment files containing API keys and passwords
+.env
+.env/
+.env.local
+.env.production
+.env.staging
+
+# Configuration files that might contain secrets
+config.json
+backend/config.json
+.env/config.json
+
+# Any files with "secret" or "private" in the name
+*secret*
+*private*
+*credential*
+
+# =================================================================
+# PYTHON
+# =================================================================
+# Byte-compiled / optimized Python files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments (different naming conventions)
+venv/
+env/
+ENV/
+.venv/
+.env/
+bot-detector-env/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# =================================================================
+# LOGS AND TEMPORARY FILES  
+# =================================================================
+# Log files
+*.log
+logs/
+log/
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+.cache/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# =================================================================
+# PROJECT SPECIFIC
+# =================================================================
+# Any local development databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Test coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# Pytest cache
+.pytest_cache/
+
+# MyPy cache
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# =================================================================
+# FRONTEND (for when frontend is added)
+# =================================================================
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Frontend build outputs
+/build
+/dist
+
+# =================================================================
+# DOCUMENTATION
+# =================================================================
+# Generated documentation
+docs/_build/
+
+# =================================================================
+# IMPORTANT SAFETY REMINDER
+# =================================================================
+# Always double-check before committing:
+# 1. No API keys or passwords in any files
+# 2. No config.json with real credentials  
+# 3. Only .env.example should be committed, never .env
+#
+# If you accidentally commit secrets:
+# 1. Immediately revoke/regenerate the API keys
+# 2. Remove them from git history 
+# 3. Add them to this .gitignore
+#
