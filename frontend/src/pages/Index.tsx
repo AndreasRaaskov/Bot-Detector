@@ -16,8 +16,38 @@ const Index = () => {
 
   const handleAnalyze = (handle: string) => {
     setAnalyzedHandle(handle);
-    // TODO: Call backend API and update results
-    // For now, results remain as null (NaN)
+    // Call backend API and update results
+    // Use relative path so Vite dev proxy (configured in vite.config.ts) will forward to backend
+    (async () => {
+      try {
+        const resp = await fetch(`/analyze`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ bluesky_handle: handle }),
+        });
+
+        if (!resp.ok) {
+          console.error("API error", resp.statusText);
+          return;
+        }
+
+        const data = await resp.json();
+        console.log("API Response:", data); // Debug log
+
+        // Map returned values into the local results shape if present
+        // Convert scores from 0-1 scale to 0-100 percentage scale
+        setResults((prev) => ({
+          ...prev,
+          followRatio: data.follow_analysis?.score ? data.follow_analysis.score * 100 : prev.followRatio,
+          postingPattern: data.posting_pattern?.score ? data.posting_pattern.score * 100 : prev.postingPattern,
+          textAnalysis: data.text_analysis?.score ? data.text_analysis.score * 100 : prev.textAnalysis,
+          llmDetection: data.llm_analysis?.score ? data.llm_analysis.score * 100 : prev.llmDetection,
+          overallScore: data.overall_score ? data.overall_score * 100 : prev.overallScore,
+        }));
+      } catch (err) {
+        console.error("Failed to call analyze API", err);
+      }
+    })();
   };
 
   return (

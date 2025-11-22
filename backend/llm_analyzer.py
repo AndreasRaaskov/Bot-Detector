@@ -9,7 +9,10 @@ from typing import List, Optional, Dict, Any, Union
 from enum import Enum
 import httpx
 
-from models import LLMAnalysisResult
+try:
+    from .models import LLMAnalysisResult
+except Exception:
+    from models import LLMAnalysisResult
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +49,7 @@ class LLMAnalyzer:
         
         # Set default models for each provider
         self.default_models = default_models or {
-            "openai": "gpt-4o-mini",  # Cost-effective model for this task
+            "openai": "gpt-5.1-2025-11-13",  # Cost-effective model for this task
             "anthropic": "claude-3-haiku-20240307",  # Fast and cost-effective
             "google": "gemini-1.5-flash",  # Good balance of speed and quality
             "ollama": "llama3.2:3b"  # Small local model

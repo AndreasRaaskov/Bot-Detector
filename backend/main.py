@@ -2,16 +2,26 @@
 # This file sets up our web server that will handle HTTP requests for bot analysis
 
 # Import FastAPI - this is our web framework for building APIs
+import logging
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Dict, Optional
 import uvicorn
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 
-# Import our custom modules
-from bot_detector import BotDetector
-from models import UserAnalysisRequest, UserAnalysisResponse
-from config import Config
+# Import our custom modules using package-relative imports when possible
+try:
+    # When running as `python -m backend.main` the package context is available
+    from .bot_detector import BotDetector
+    from .models import UserAnalysisRequest, UserAnalysisResponse
+    from .config import Config
+except Exception:
+    # Fallback for running the module directly (e.g., `python backend/main.py`)
+    from bot_detector import BotDetector
+    from models import UserAnalysisRequest, UserAnalysisResponse
+    from config import Config
 
 # Create the FastAPI application instance
 # This is the main object that will handle all our web requests
@@ -106,14 +116,29 @@ async def analyze_user(request: UserAnalysisRequest):
         # This helps with debugging and provides useful error messages to clients
         raise HTTPException(status_code=500, detail=str(e))
 
+# If a built frontend exists, mount it so the backend serves the static files
+# This must be done AFTER all API routes are defined
+try:
+    # Determine frontend dist path relative to repo root
+    frontend_dist = Path(__file__).parent.parent / "frontend" / "dist"
+    if frontend_dist.exists():
+        # Mount at root so the SPA is served at the root path
+        # The html=True parameter enables SPA fallback to index.html for client-side routing
+        app.mount("/", StaticFiles(directory=str(frontend_dist), html=True), name="frontend")
+        logging.getLogger(__name__).info(f"Serving frontend from {frontend_dist}")
+    else:
+        logging.getLogger(__name__).info("No frontend build found at frontend/dist; not serving static files")
+except Exception:
+    logging.getLogger(__name__).exception("Error while attempting to mount frontend static files")
+
 # This block runs only when the file is executed directly (not imported)
 # It starts the development server
 if __name__ == "__main__":
     # uvicorn is an ASGI server that runs our FastAPI application
     # Use configuration values for host and port
     uvicorn.run(
-        app, 
-        host=config.api_host, 
+        app,
+        host=config.api_host,
         port=config.api_port,
         reload=config.debug_mode  # Auto-reload in debug mode
     )

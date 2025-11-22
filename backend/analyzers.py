@@ -10,12 +10,20 @@ from datetime import datetime, timedelta
 from collections import Counter, defaultdict
 import logging
 
-from bluesky_client import BlueskyProfile, BlueskyPost
-from models import (
-    FollowAnalysisResult, 
-    PostingPatternResult, 
-    TextAnalysisResult
-)
+try:
+    from .bluesky_client import BlueskyProfile, BlueskyPost
+    from .models import (
+        FollowAnalysisResult,
+        PostingPatternResult,
+        TextAnalysisResult
+    )
+except Exception:
+    from bluesky_client import BlueskyProfile, BlueskyPost
+    from models import (
+        FollowAnalysisResult,
+        PostingPatternResult,
+        TextAnalysisResult
+    )
 
 logger = logging.getLogger(__name__)
 

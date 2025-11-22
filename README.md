@@ -47,7 +47,11 @@ Bot-Detector/
 │   ├── test_analyzers.py # Bot detection logic tests
 │   ├── test_bluesky_client.py # Bluesky integration tests
 │   └── README_TESTING.md # Testing documentation
-├── frontend/            # Web interface (TBD - Lovable)
+├── frontend/            # React web interface with shadcn/ui
+│   ├── src/             # React source code
+│   ├── dist/            # Built frontend (served by backend)
+│   ├── package.json     # Node.js dependencies
+│   └── vite.config.ts   # Vite configuration
 ├── pytest.ini          # Test configuration
 ├── .gitignore          # Prevents committing secrets
 └── README.md           # This file
@@ -57,6 +61,7 @@ Bot-Detector/
 
 ### Prerequisites
 - Python 3.8+ 
+- Node.js 18+ (for frontend)
 - Git
 - API keys for at least one service (Bluesky or LLM providers)
 
@@ -65,55 +70,105 @@ Bot-Detector/
 **1. Clone and Navigate**
 ```bash
 git clone <repository-url>
-cd Bot-Detector/backend
+cd Bot-Detector
 ```
 
-**2. Install Dependencies**
+**2. Install Backend Dependencies**
 
 *Linux/macOS:*
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip install -r backend/requirements.txt
 ```
 
 *Windows:*
 ```cmd
 python -m venv venv
 venv\Scripts\activate  
-pip install -r requirements.txt
+pip install -r backend\requirements.txt
 ```
 
-**3. Configure Credentials**
+**3. Install Frontend Dependencies**
+```bash
+cd frontend
+npm install
+cd ..
+```
+
+**4. Configure Credentials**
 
 Copy the environment template:
 ```bash
 # Linux/macOS
-cp .env.example .env
+cp config.example.json config.json
 
 # Windows
-copy .env.example .env
+copy config.example.json config.json
 ```
 
-Edit `.env` with your credentials:
+Edit `config.json` with your credentials:
+```json
+{
+  "bluesky": {
+    "username": "your-bluesky-username",
+    "password": "your-bluesky-password"
+  },
+  "llm": {
+    "openai_api_key": "sk-your-openai-key"
+  }
+}
+```
+
+**5. Choose Your Running Mode**
+
+### 🔧 Development Mode (Recommended for Development)
+Runs frontend and backend as separate services with hot reload:
+
 ```bash
-BLUESKY_USERNAME=your-bluesky-username
-BLUESKY_PASSWORD=your-bluesky-password
-OPENAI_API_KEY=sk-your-openai-key
-# Add other API keys as needed
+./run_dev.sh
 ```
 
-**4. Run the Backend**
+This starts:
+- Backend API server: `http://localhost:8000`
+- Frontend dev server: `http://localhost:8080` (with API proxy)
+
+### 🚀 Production Mode (Integrated)
+Builds frontend and serves it through the backend:
+
 ```bash
-cd backend
-python main.py
+./serve_prod.sh
 ```
 
-**5. Test the API**
+This serves everything from: `http://localhost:8000`
+- Frontend routes: `/`, `/about`, etc.
+- API routes: `/analyze`, `/health`, `/config`
 
-Visit `http://localhost:8000/health` to verify the service is running.
+**6. Test the Application**
 
-**6. Run Tests** (Optional but recommended)
+Visit the appropriate URL based on your running mode:
+- Development: `http://localhost:8080` (frontend with API proxy to backend on :8000)
+- Production: `http://localhost:8000` (integrated backend serving frontend)
+
+### 🔍 Troubleshooting Development Mode
+
+If the frontend can't connect to the backend API:
+
+1. **Check both services are running**:
+   ```bash
+   # In one terminal - this starts BOTH backend and frontend
+   ./run_dev.sh
+   ```
+
+2. **Verify backend is accessible**:
+   ```bash
+   # In another terminal
+   curl http://localhost:8000/health
+   ```
+
+3. **Check frontend proxy configuration** - the Vite config should proxy `/analyze`, `/health`, and `/config` to `http://localhost:8000`
+
+**7. Run Tests** (Optional but recommended)
 ```bash
 # From project root
 pytest
@@ -192,13 +247,15 @@ The system needs either:
 - [x] Bluesky integration
 - [x] LLM analysis support
 - [x] REST API interface
+- [x] Web frontend interface (React + shadcn/ui)
+- [x] Integrated backend/frontend serving
 - [x] Comprehensive documentation
 
 ### 🔄 Phase 2 (Planned)
-- [ ] Web frontend interface
 - [ ] Database for result storage  
 - [ ] Batch analysis capabilities
 - [ ] Performance optimizations
+- [ ] User authentication and accounts
 
 ### 🚀 Phase 3 (Future)
 - [ ] Real-time monitoring dashboard

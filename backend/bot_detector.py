@@ -8,17 +8,30 @@ import logging
 from typing import Optional, Dict, Any, List
 from datetime import datetime
 
-from bluesky_client import BlueskyClient, BlueskyProfile, BlueskyPost
-from analyzers import FollowAnalyzer, PostingPatternAnalyzer, TextAnalyzer
-from llm_analyzer import LLMAnalyzer
-from models import (
+try:
+    from .bluesky_client import BlueskyClient, BlueskyProfile, BlueskyPost
+    from .analyzers import FollowAnalyzer, PostingPatternAnalyzer, TextAnalyzer
+    from .llm_analyzer import LLMAnalyzer
+    from .models import (
+        UserAnalysisResponse, 
+        FollowAnalysisResult,
+        PostingPatternResult, 
+        TextAnalysisResult,
+        LLMAnalysisResult
+    )
+    from .config import Config
+except Exception:
+    from bluesky_client import BlueskyClient, BlueskyProfile, BlueskyPost
+    from analyzers import FollowAnalyzer, PostingPatternAnalyzer, TextAnalyzer
+    from llm_analyzer import LLMAnalyzer
+    from models import (
     UserAnalysisResponse, 
     FollowAnalysisResult,
     PostingPatternResult, 
     TextAnalysisResult,
     LLMAnalysisResult
-)
-from config import Config
+    )
+    from config import Config
 
 logger = logging.getLogger(__name__)
 
