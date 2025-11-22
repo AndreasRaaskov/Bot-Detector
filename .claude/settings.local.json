@@ -3,7 +3,21 @@
     "allow": [
       "Bash(python -m pytest tests/test_api.py::TestAnalyzeEndpoint::test_analyze_handle_validation -v -s)",
       "Bash(python -m pytest tests/test_api.py::TestCORSHeaders::test_cors_headers_present -v)",
-      "Bash(python -m pytest tests/test_real_integration.py::TestRealBotDetection::test_known_human_account -v -s)"
+      "Bash(python -m pytest tests/test_real_integration.py::TestRealBotDetection::test_known_human_account -v -s)",
+      "Bash(python -m pytest tests/test_enhanced_text_analysis.py::TestEnhancedAIDetection::test_mixed_content_analysis -v -s)",
+      "Bash(python -m pytest tests/test_enhanced_text_analysis.py::TestEnhancedAIDetection::test_ai_phrase_categorization -v -s)",
+      "Bash(python -m pytest tests/test_enhanced_text_analysis.py::TestEnhancedAIDetection::test_human_content_detection -v -s)",
+      "Bash(python -m pytest --tb=short)",
+      "Bash(python -m pytest tests/test_analyzers.py::TestPostingPatternAnalyzer::test_normal_posting_pattern -v -s)",
+      "Bash(python -m pytest tests/test_analyzers.py::TestPostingPatternAnalyzer::test_suspicious_posting_pattern -v -s)",
+      "Bash(python -m pytest tests/test_analyzers.py::TestTextAnalyzer::test_normal_text_analysis -v -s)",
+      "Bash(python -m pytest tests/test_analyzers.py::TestPostingPatternAnalyzer::test_suspicious_posting_pattern -v)",
+      "Bash(python -m pytest tests/test_analyzers.py::TestTextAnalyzer::test_normal_text_analysis -v)",
+      "Bash(python -m pytest tests/test_enhanced_text_analysis.py::TestEnhancedAIDetection::test_spam_content_detection -v -s)",
+      "Bash(python -m pytest tests/test_enhanced_text_analysis.py::TestEnhancedAIDetection::test_spam_content_detection -v)",
+      "Bash(python -m pytest --tb=short -q)",
+      "Bash(python -m pytest tests/test_real_integration.py::TestRealBotDetection::test_suspicious_account_patterns tests/test_real_integration.py::TestRealBotDetection::test_complete_analysis_pipeline -v)",
+      "Bash(python -m pytest -x --tb=line)"
     ],
     "deny": []
   }

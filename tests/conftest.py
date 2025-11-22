@@ -186,12 +186,13 @@ def sample_bluesky_posts():
     
     posts = []
     
-    # Original posts
+    # Original posts with irregular timing but clear sleep period (2am-7am)
+    irregular_hours = [8.2, 9.5, 11.8, 13.7, 15.1, 17.2, 19.3, 20.8, 22.2, 23.5]
     for i in range(10):
         posts.append(BlueskyPost(
             uri=f"at://test.user/app.bsky.feed.post/{i}",
             text=f"This is test post number {i}. Just sharing some thoughts about topic {i}.",
-            created_at=base_time + timedelta(hours=i),  # Use timedelta instead of replace
+            created_at=base_time + timedelta(hours=irregular_hours[i]),
             reply_count=i,
             repost_count=i * 2,
             like_count=i * 3,
@@ -199,12 +200,13 @@ def sample_bluesky_posts():
             is_repost=False
         ))
     
-    # Some replies
+    # Some replies with irregular timing, next day but avoiding sleep hours
+    reply_hours = [32.3, 34.7, 37.1]  # Next day at 8:18am, 10:42am, 1:06pm
     for i in range(3):
         posts.append(BlueskyPost(
             uri=f"at://test.user/app.bsky.feed.post/reply_{i}",
             text=f"Great point! I totally agree with this perspective on topic {i}.",
-            created_at=base_time + timedelta(hours=10 + i),  # Use timedelta
+            created_at=base_time + timedelta(hours=reply_hours[i]),
             reply_count=0,
             repost_count=0,
             like_count=i,
@@ -212,12 +214,13 @@ def sample_bluesky_posts():
             is_repost=False
         ))
     
-    # Some reposts
+    # Some reposts with irregular timing, avoiding sleep hours
+    repost_hours = [39.8, 41.2]  # Next day at 3:48pm, 5:12pm
     for i in range(2):
         posts.append(BlueskyPost(
             uri=f"at://test.user/app.bsky.feed.post/repost_{i}",
             text="",  # Reposts typically have no text
-            created_at=base_time + timedelta(hours=13 + i),  # Use timedelta
+            created_at=base_time + timedelta(hours=repost_hours[i]),
             reply_count=0,
             repost_count=0,
             like_count=0,

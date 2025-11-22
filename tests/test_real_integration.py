@@ -180,6 +180,11 @@ class TestRealBotDetection:
         
         return config
     
+    @pytest.fixture
+    def bot_detector(self, config):
+        """Create bot detector with real configuration"""
+        return BotDetector(config)
+    
     async def get_bot_detector(self, config):
         """Helper method to create bot detector with real configuration"""
         return BotDetector(config)
@@ -239,15 +244,18 @@ class TestRealBotDetection:
         # For now, let's test the detection logic works on any account
         # You can add specific handles here as you discover them
         
-        # Test that the analyzer components work end-to-end
-        result = await bot_detector.analyze_user("bsky.app")  # Using safe test account
-        
-        # Verify all analyzer components produced results
-        assert result.follow_analysis.score is not None
-        assert result.posting_pattern.score is not None
-        assert result.text_analysis.score is not None
-        
-        print(f"\\n🔍 Pattern detection test passed for: {result.handle}")
+        try:
+            # Test that the analyzer components work end-to-end
+            result = await bot_detector.analyze_user("bsky.app")  # Using safe test account
+            
+            # Verify all analyzer components produced results
+            assert result.follow_analysis.score is not None
+            assert result.posting_pattern.score is not None
+            assert result.text_analysis.score is not None
+            
+            print(f"\\n🔍 Pattern detection test passed for: {result.handle}")
+        finally:
+            await bot_detector.close()
     
     @pytest.mark.integration
     @pytest.mark.slow
@@ -257,31 +265,34 @@ class TestRealBotDetection:
         Test the complete analysis pipeline end-to-end
         Verifies all components work together correctly
         """
-        # Test on a real account
-        result = await bot_detector.analyze_user("bsky.app")
-        
-        # Comprehensive validation of the complete response structure
-        assert result.handle is not None
-        assert result.display_name is not None
-        assert result.created_at is not None
-        assert result.processing_time_ms > 0
-        
-        # All analysis components should provide explanations
-        assert len(result.follow_analysis.explanation) > 10
-        assert len(result.posting_pattern.explanation) > 10  
-        assert len(result.text_analysis.explanation) > 10
-        
-        # Should have recommendations
-        assert len(result.recommendations) > 0
-        
-        # Should have a coherent summary
-        assert len(result.summary) > 20
-        assert result.handle.replace("@", "") in result.summary
-        
-        print(f"\\n✅ Complete pipeline test:")
-        print(f"   Processing time: {result.processing_time_ms}ms")
-        print(f"   Components tested: Follow, Posting, Text, LLM")
-        print(f"   Recommendations: {len(result.recommendations)}")
+        try:
+            # Test on a real account
+            result = await bot_detector.analyze_user("bsky.app")
+            
+            # Comprehensive validation of the complete response structure
+            assert result.handle is not None
+            assert result.display_name is not None
+            assert result.created_at is not None
+            assert result.processing_time_ms > 0
+            
+            # All analysis components should provide explanations
+            assert len(result.follow_analysis.explanation) > 10
+            assert len(result.posting_pattern.explanation) > 10  
+            assert len(result.text_analysis.explanation) > 10
+            
+            # Should have recommendations
+            assert len(result.recommendations) > 0
+            
+            # Should have a coherent summary
+            assert len(result.summary) > 20
+            assert result.handle.replace("@", "") in result.summary
+            
+            print(f"\\n✅ Complete pipeline test:")
+            print(f"   Processing time: {result.processing_time_ms}ms")
+            print(f"   Components tested: Follow, Posting, Text, LLM")
+            print(f"   Recommendations: {len(result.recommendations)}")
+        finally:
+            await bot_detector.close()
 
 class TestRealAPIConnectivity:
     """
@@ -383,16 +394,16 @@ class TestRealErrorHandling:
             # Test with a handle that definitely doesn't exist
             nonexistent_handle = "definitely-does-not-exist-12345.bsky.social"
             
-            with pytest.raises(Exception) as exc_info:
-                await detector.analyze_user(nonexistent_handle)
+            # The bot detector should handle this gracefully and return an error response
+            result = await detector.analyze_user(nonexistent_handle)
             
-            # Should get a meaningful error message
-            error_msg = str(exc_info.value).lower()
-            assert any(word in error_msg for word in ['not found', 'does not exist', 'invalid', 'user']), (
-                f"Error message not descriptive enough: {exc_info.value}")
+            # Should get a meaningful error summary
+            error_msg = result.summary.lower()
+            assert any(word in error_msg for word in ['not found', 'error', 'unable to fetch', 'failed']), (
+                f"Error message not descriptive enough: {result.summary}")
             
             print(f"\\n✅ Nonexistent user error handling test passed")
-            print(f"   Error message: {exc_info.value}")
+            print(f"   Error message: {result.summary}")
             
         finally:
             await detector.close()

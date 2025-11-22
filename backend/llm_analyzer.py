@@ -207,7 +207,7 @@ class LLMAnalyzer:
                 {"role": "user", "content": prompt}
             ],
             "temperature": 0.1,  # Low temperature for consistent analysis
-            "max_tokens": 1000
+            "max_completion_tokens": 1000
         }
         
         response = await self.client.post(

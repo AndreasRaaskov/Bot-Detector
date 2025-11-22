@@ -280,8 +280,8 @@ class PostingPatternAnalyzer:
                 score += 0.2
                 red_flags.append("Detected burst posting behavior")
             
-            # Cap score at 1.0
-            score = min(score, 1.0)
+            # Cap score between 0.0 and 1.0
+            score = max(0.0, min(score, 1.0))
             
             explanation = self._generate_pattern_explanation(
                 total_posts, posts_per_day, posting_hours, red_flags
@@ -582,16 +582,21 @@ class TextAnalyzer:
                     score += min(other_ai_count * 0.05, 0.3)  # Gradual penalty for other AI phrases
                     red_flags.append(f"Contains {other_ai_count} AI-typical phrases")
             
-            # Check for spam patterns
+            # Check for spam patterns - give higher weight to obvious spam
             spam_count = ai_analysis.get("spam_patterns", 0)
             if spam_count > 0:
-                score += min(spam_count * 0.1, 0.3)
+                spam_score = min(spam_count * 0.1, 0.5)  # Increased max for spam
+                score += spam_score
                 red_flags.append(f"Contains {spam_count} spam/promotional patterns")
             
-            # Factor in human indicators (positive signal)
+            # Factor in human indicators (positive signal) - but don't let them fully negate spam
             human_indicators = ai_analysis.get("human_indicators", 0)
             if human_indicators > 0:
-                score -= min(human_indicators * 0.05, 0.2)  # Reduce score for human indicators
+                # Reduce the impact of human indicators when spam is present
+                human_reduction = min(human_indicators * 0.05, 0.2)
+                if spam_count > 0:
+                    human_reduction *= 0.5  # Halve the human indicator benefit if spam is detected
+                score -= human_reduction
                 red_flags.append(f"✅ Contains {human_indicators} human-like patterns")
             
             # Check for extremely short or generic content
@@ -631,7 +636,8 @@ class TextAnalyzer:
             # (In a real implementation, you'd use a proper language model)
             perplexity = self._estimate_perplexity(post_texts)
             
-            score = min(score, 1.0)
+            # Cap score between 0.0 and 1.0
+            score = max(0.0, min(score, 1.0))
             
             explanation = self._generate_text_explanation(
                 len(original_posts), avg_length, vocab_diversity, red_flags
