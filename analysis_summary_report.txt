@@ -1,0 +1,34 @@
+
+====================================================================
+                BOT DETECTION ANALYSIS SUMMARY REPORT
+====================================================================
+
+Dataset Size:
+  - Total users analyzed: 555
+  - Total DeepSeek analyses: 3988
+
+Our Bot Detection Results:
+  - Mean overall score: 0.163
+  - Classified as bots (score >= 0.6): 0 (0.0%)
+  - Classified as humans (score <= 0.4): 547 (98.6%)
+  - Uncertain (0.4 < score < 0.6): 8 (1.4%)
+
+Method Scores (Mean):
+  - Follow analysis: 0.164
+  - Posting pattern: 0.309
+  - Text analysis: 0.080
+  - LLM analysis: 0.098
+
+DeepSeek Analysis:
+  - Bot detection rates by prompt:
+    - prompt1: 21.2%
+    - prompt2: 28.8%
+    - prompt3: 91.5%
+    - prompt4: 16.4%
+
+Agreement:
+  - Correlation (Our vs DeepSeek): 0.202
+  - Both agree on bots: 0
+  - Both agree on humans: 321
+
+====================================================================

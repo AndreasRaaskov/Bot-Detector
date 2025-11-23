@@ -2,7 +2,6 @@
 # This file contains different analysis methods for detecting bot behavior
 # Each analyzer focuses on a specific aspect of bot detection
 
-# analyzers.py - Bot detection analysis modules
 import re
 import math
 import statistics
@@ -11,10 +10,15 @@ from datetime import datetime, timedelta
 from collections import Counter, defaultdict
 import logging
 
-logger = logging.getLogger(__name__)
+# Import dataclasses for type hints
+try:
+    from .bluesky_client import BlueskyProfile, BlueskyPost
+    from .models import FollowAnalysisResult, PostingPatternResult, TextAnalysisResult
+except ImportError:
+    from bluesky_client import BlueskyProfile, BlueskyPost
+    from models import FollowAnalysisResult, PostingPatternResult, TextAnalysisResult
 
-# The dataclasses (BlueskyProfile, BlueskyPost, FollowAnalysisResult, etc.) 
-# should be imported when this module is used
+logger = logging.getLogger(__name__)
 
 
 class FollowAnalyzer:

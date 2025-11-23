@@ -1,0 +1,548 @@
+/* CSS Variables - Design System */
+:root {
+    /* Colors (Light Mode) */
+    --background: hsl(209, 40%, 96%);
+    --foreground: hsl(222, 47%, 11%);
+    --card: hsl(210, 40%, 98%);
+    --card-foreground: hsl(222, 47%, 11%);
+    --primary: hsl(200, 98%, 39%);
+    --primary-foreground: hsl(204, 100%, 97%);
+    --secondary: hsl(215, 24%, 26%);
+    --secondary-foreground: hsl(210, 40%, 98%);
+    --muted: hsl(215, 20%, 65%);
+    --muted-foreground: hsl(222, 47%, 11%);
+    --accent: hsl(210, 40%, 98%);
+    --accent-foreground: hsl(215, 19%, 34%);
+    --border: hsl(212, 26%, 83%);
+    --input: hsl(212, 26%, 83%);
+
+    /* Status Colors */
+    --success: hsl(142, 72%, 29%);
+    --warning: hsl(38, 92%, 50%);
+    --danger: hsl(0, 72%, 51%);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* Spacing */
+    --radius: 0.5rem;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--background);
+    color: var(--foreground);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Container Utilities */
+.container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.container-small {
+    max-width: 672px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.container-medium {
+    max-width: 896px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.container-large {
+    max-width: 1152px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background-color: hsla(200, 98%, 39%, 0.1);
+    color: var(--primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.badge .icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+.title {
+    font-size: 3.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(to bottom right, var(--foreground), var(--muted));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    font-size: 1.125rem;
+    color: var(--muted);
+    max-width: 672px;
+    margin: 0 auto;
+}
+
+/* Input Section */
+.input-section {
+    padding: 1.5rem 1rem;
+}
+
+.input-card {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.input-group {
+    flex: 1;
+    position: relative;
+}
+
+.at-symbol {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+}
+
+.handle-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem 0.5rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    background-color: var(--background);
+    color: var(--foreground);
+    transition: all 0.2s;
+}
+
+.handle-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px hsla(200, 98%, 39%, 0.1);
+}
+
+.analyze-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.5rem;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.analyze-button:hover {
+    background-color: hsl(200, 98%, 35%);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.analyze-button:active {
+    transform: translateY(0);
+}
+
+.analyze-button .icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    padding: 1rem 1.5rem;
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    max-width: 400px;
+    opacity: 0;
+    transform: translateY(-1rem);
+    transition: all 0.3s;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.toast.error {
+    border-color: var(--danger);
+    background-color: hsl(0, 72%, 95%);
+}
+
+.toast-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.toast-description {
+    font-size: 0.875rem;
+    color: var(--muted);
+}
+
+/* Loading Indicator */
+.loading-container {
+    text-align: center;
+    padding: 2rem;
+}
+
+.spinner {
+    width: 3rem;
+    height: 3rem;
+    border: 4px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Results Section */
+.results-section {
+    padding: 3rem 1rem;
+}
+
+.analyzed-handle {
+    text-align: center;
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+}
+
+.handle-name {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .results-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.result-card {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: all 0.2s;
+}
+
+.result-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.result-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.card-description {
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+}
+
+.score-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.score-label {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.score-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.score-neutral {
+    color: var(--muted);
+}
+
+.score-low {
+    color: var(--success);
+}
+
+.score-medium {
+    color: var(--warning);
+}
+
+.score-high {
+    color: var(--danger);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 0.5rem;
+    background-color: var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.progress-bar-large {
+    height: 0.75rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary);
+    transition: width 0.5s ease-in-out;
+}
+
+/* Overall Score Card */
+.overall-card {
+    background-color: hsla(210, 40%, 98%, 0.5);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.overall-content {
+    text-align: center;
+}
+
+.overall-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.overall-description {
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+}
+
+.overall-score {
+    font-size: 3.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Team Section */
+.team-section {
+    padding: 4rem 1rem;
+    background-color: hsla(210, 40%, 98%, 0.3);
+}
+
+.team-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.team-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.team-subtitle {
+    color: var(--muted);
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .team-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.team-card {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.team-card:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.avatar-wrapper {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background-color: hsla(200, 98%, 39%, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.avatar-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--primary);
+}
+
+.member-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.member-role {
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+}
+
+.member-links {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.link-button {
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
+    color: var(--foreground);
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.link-button:hover {
+    background-color: var(--accent);
+}
+
+.link-button .icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+.ai-team {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--muted);
+}
+
+.ai-label {
+    font-weight: 500;
+}
+
+/* Footer */
+.footer {
+    padding: 2rem 1rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--muted);
+}
+
+.footer-link {
+    color: var(--primary);
+    text-decoration: none;
+    transition: text-decoration 0.2s;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .input-wrapper {
+        flex-direction: column;
+    }
+
+    .analyze-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Icon utility */
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+}

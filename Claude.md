@@ -6,7 +6,7 @@ Technical Andreas MS.c Humans Centred artificial intelligence
 Technical Mitali BA.c Computer science
 
 Policy Matt 
-Policy Clare
+
 
 AI team members 
 Claude code backend
@@ -26,4 +26,5 @@ follow/follower analysis (follow a lot but have no follower indicate bot)
 post pattern (never sleep or post to fast)
 Text pattern (Perplixity score or other open AI detection framwork)
 LLM analysis (Ask LLM to read post and indicate Bot pattern)
+
 
