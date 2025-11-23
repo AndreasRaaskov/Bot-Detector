@@ -17,7 +17,8 @@
       "Bash(python -m pytest tests/test_enhanced_text_analysis.py::TestEnhancedAIDetection::test_spam_content_detection -v)",
       "Bash(python -m pytest --tb=short -q)",
       "Bash(python -m pytest tests/test_real_integration.py::TestRealBotDetection::test_suspicious_account_patterns tests/test_real_integration.py::TestRealBotDetection::test_complete_analysis_pipeline -v)",
-      "Bash(python -m pytest -x --tb=line)"
+      "Bash(python -m pytest -x --tb=line)",
+      "Bash(python:*)"
     ],
     "deny": []
   }

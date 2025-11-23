@@ -225,6 +225,23 @@ class BotDetectionDB:
             cursor.execute("SELECT handle FROM users ORDER BY handle")
             return [row['handle'] for row in cursor.fetchall()]
 
+    def get_unanalyzed_handles(self) -> List[str]:
+        """
+        Get list of user handles that haven't been analyzed yet
+
+        Returns:
+            List of handles that exist in users table but not in bot_detection_results
+        """
+        with self.get_cursor() as cursor:
+            cursor.execute("""
+                SELECT u.handle
+                FROM users u
+                LEFT JOIN bot_detection_results b ON u.handle = b.handle
+                WHERE b.handle IS NULL
+                ORDER BY u.handle
+            """)
+            return [row['handle'] for row in cursor.fetchall()]
+
     def get_user(self, handle: str) -> Optional[Dict[str, Any]]:
         """Get user metadata by handle"""
         with self.get_cursor() as cursor:

@@ -1,0 +1,64 @@
+{
+  "description": "Seed accounts for bot candidate discovery. These high-profile accounts likely have bot followers.",
+  "categories": {
+    "news_media": [
+      "bbc.bsky.social",
+      "cnn.bsky.social",
+      "npr.bsky.social",
+      "reuters.com",
+      "apnews.com",
+      "nytimes.bsky.social",
+      "washingtonpost.bsky.social",
+      "theguardian.bsky.social",
+      "foxnews.bsky.social",
+      "msnbc.bsky.social"
+    ],
+    "politics": [
+      "aoc.bsky.social",
+      "potus.bsky.social",
+      "kamalaharris.bsky.social",
+      "berniesanders.bsky.social",
+      "elizabethwarren.bsky.social",
+      "repjasmine.bsky.social",
+      "repadamschiff.bsky.social"
+    ],
+    "tech": [
+      "bsky.app",
+      "jay.bsky.team",
+      "paul.bsky.team",
+      "verge.bsky.social",
+      "techcrunch.bsky.social",
+      "wired.bsky.social",
+      "arstechnica.bsky.social"
+    ],
+    "popular_accounts": [
+      "astrophysicspod.bsky.social",
+      "georgetakei.bsky.social",
+      "stephenfry.bsky.social",
+      "neilhimself.bsky.social",
+      "iammarkhamill.bsky.social",
+      "rebeccawatson.bsky.social"
+    ],
+    "crypto_finance": [
+      "coindesk.bsky.social",
+      "bitcoin.bsky.social",
+      "ethereum.bsky.social",
+      "coinbase.bsky.social",
+      "bloomberg.bsky.social",
+      "financialtimes.bsky.social"
+    ],
+    "science_education": [
+      "nasa.bsky.social",
+      "esa.bsky.social",
+      "nature.bsky.social",
+      "sciencemagazine.bsky.social"
+    ],
+    "sports": [
+      "espn.bsky.social",
+      "nba.bsky.social",
+      "nfl.bsky.social",
+      "mlb.bsky.social"
+    ]
+  },
+  "notes": "Crypto/finance accounts often attract bot followers. Political and news accounts also tend to have bot followers trying to amplify messaging. Added more categories for broader coverage."
+}

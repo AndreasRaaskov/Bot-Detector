@@ -115,7 +115,7 @@ class TestExampleScenarios:
             "posts_count": 3,          # Just a few posts
             "account_age_days": 1,     # Created yesterday
             "posts_per_day": 3,        # All posts from first day
-            "follow_ratio": float('inf') if 0 == 0 else 50/0  # Infinite ratio
+            "follow_ratio": 1000.0  # Very high ratio for 0 followers (indicates likely bot)
         }
         
         # New users should get some leniency in scoring

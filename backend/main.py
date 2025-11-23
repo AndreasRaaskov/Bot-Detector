@@ -47,6 +47,7 @@ app.add_middleware(
 config = Config()
 
 # Create a single instance of our bot detector that will be shared across requests
+# This version includes full LLM analysis for comprehensive bot detection
 # This pattern is called a "singleton" and helps us reuse connections and configurations
 bot_detector = BotDetector(config)
 

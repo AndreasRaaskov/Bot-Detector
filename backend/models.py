@@ -67,7 +67,7 @@ class FollowAnalysisResult(BaseModel):
     """
     follower_count: int = Field(description="Number of accounts following this user")
     following_count: int = Field(description="Number of accounts this user follows")
-    ratio: float = Field(description="Following/follower ratio (higher values more suspicious)")
+    ratio: Optional[float] = Field(description="Following/follower ratio (null if invalid, higher values more suspicious)")
     score: float = Field(description="Bot likelihood score from 0-1 based on ratio", ge=0, le=1)
     explanation: str = Field(description="Human-readable explanation of the analysis")
 
@@ -100,9 +100,11 @@ class LLMAnalysisResult(BaseModel):
     This is where we ask an AI model to judge if content seems AI-generated
     """
     model_used: str = Field(description="Which LLM model performed the analysis")
-    confidence: float = Field(description="Model's confidence in its assessment", ge=0, le=1)
+    confidence: Optional[float] = Field(None, description="Model's confidence in its assessment (null if analysis skipped/failed)", ge=0, le=1)
     reasoning: str = Field(description="Model's explanation of its decision")
-    score: float = Field(description="Bot likelihood score from 0-1 based on LLM analysis", ge=0, le=1)
+    score: Optional[float] = Field(None, description="Bot likelihood score from 0-1 based on LLM analysis (null if analysis skipped/failed)", ge=0, le=1)
+    status: Optional[str] = Field(None, description="Status of the analysis (e.g., 'success', 'skipped', 'failed')")
+    error_code: Optional[str] = Field(None, description="Error code if analysis failed or was skipped (e.g., 'LLM_DISABLED', 'API_ERROR')")
 
 class UserAnalysisResponse(BaseModel):
     """

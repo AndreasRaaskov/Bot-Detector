@@ -22,22 +22,33 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-async def analyze_all_users(db_path: str = "bot_detection.db", batch_size: int = 10):
+async def analyze_all_users(db_path: str = "bot_detection.db", batch_size: int = 10, force: bool = False):
     """
     Run bot detection on all users in database
 
     Args:
         db_path: Path to database
         batch_size: Number of users to analyze before saving progress
+        force: If True, re-analyze already analyzed users. If False, skip them.
     """
     # Initialize database
     db = BotDetectionDB(db_path)
     db.connect()
 
-    # Get all handles
-    handles = db.get_all_handles()
+    # Get handles to analyze
+    if force:
+        handles = db.get_all_handles()
+        logger.info(f"Force mode: analyzing all {len(handles)} users")
+    else:
+        handles = db.get_unanalyzed_handles()
+        total_users = len(db.get_all_handles())
+        logger.info(f"Found {len(handles)} unanalyzed users out of {total_users} total")
+        if len(handles) == 0:
+            logger.info("All users have already been analyzed! Use --force to re-analyze.")
+            db.close()
+            return
+
     total = len(handles)
-    logger.info(f"Found {total} users to analyze")
 
     # Initialize bot detector with config
     # Config will look for .env/config.json or config.json
@@ -86,7 +97,7 @@ async def analyze_all_users(db_path: str = "bot_detection.db", batch_size: int =
                     'follow_analysis_score': result.follow_analysis.score,
                     'posting_pattern_score': result.posting_pattern.score,
                     'text_analysis_score': result.text_analysis.score,
-                    'llm_analysis_score': result.llm_analysis.score,
+                    'llm_analysis_score': result.llm_analysis.score if result.llm_analysis.score is not None else 0.0,
                     'summary': result.summary,
                     'recommendations': ', '.join(result.recommendations)
                 })
@@ -112,4 +123,33 @@ async def analyze_all_users(db_path: str = "bot_detection.db", batch_size: int =
     logger.info(f"  Errors: {errors}")
 
 if __name__ == "__main__":
-    asyncio.run(analyze_all_users())
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description='Run bot detection analysis on users in database'
+    )
+    parser.add_argument(
+        '--force',
+        action='store_true',
+        help='Re-analyze already analyzed users (default: skip analyzed users)'
+    )
+    parser.add_argument(
+        '--batch-size',
+        type=int,
+        default=10,
+        help='Number of users to analyze before logging progress (default: 10)'
+    )
+    parser.add_argument(
+        '--db-path',
+        type=str,
+        default='bot_detection.db',
+        help='Path to database file (default: bot_detection.db)'
+    )
+
+    args = parser.parse_args()
+
+    asyncio.run(analyze_all_users(
+        db_path=args.db_path,
+        batch_size=args.batch_size,
+        force=args.force
+    ))

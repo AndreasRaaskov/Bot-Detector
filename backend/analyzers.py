@@ -54,8 +54,9 @@ class FollowAnalyzer:
             
             # Calculate the ratio (avoid division by zero)
             if followers == 0:
-                # If no followers but following people, this is very suspicious
-                ratio = float('inf') if following > 0 else 0
+                # If no followers but following people, this is highly suspicious (likely bot)
+                # Use a very high ratio to indicate maximum suspicion (inf/nan not JSON compliant)
+                ratio = 1000.0 if following > 0 else 0.0
             else:
                 ratio = following / followers
             
@@ -537,7 +538,12 @@ class TextAnalyzer:
         try:
             # Filter to only original posts (not reposts/replies)
             original_posts = [p for p in posts if not p.is_repost and p.text.strip()]
-            
+
+            # If no posts but we have a bio, analyze the bio
+            if not original_posts and profile_text:
+                return await self._analyze_bio_only(profile_text)
+
+            # If no posts and no bio, return neutral
             if not original_posts:
                 return TextAnalysisResult(
                     sample_posts=[],
@@ -861,16 +867,156 @@ class TextAnalyzer:
         # Convert to a perplexity-like measure (higher = more natural)
         return 2 ** (-entropy) if entropy < 0 else 1.0
     
-    def _generate_text_explanation(self, num_posts: int, avg_length: float, 
+    async def _analyze_bio_only(self, bio_text: str) -> TextAnalysisResult:
+        """
+        Analyze only the bio when there are no posts
+        This is for edge cases like bots with no posts but suspicious bios
+        """
+        try:
+            score = 0.0
+            red_flags = []
+
+            # Check for AI phrases in bio
+            ai_analysis = self._count_ai_phrases([bio_text])
+            ai_phrase_count = ai_analysis["total"]
+
+            if ai_phrase_count > 0:
+                score += min(ai_phrase_count * 0.1, 0.4)
+                red_flags.append(f"Bio contains {ai_phrase_count} AI-typical phrases")
+
+            # Check for spam patterns (crypto, links, promotional content)
+            spam_count = ai_analysis.get("spam_patterns", 0)
+            if spam_count > 0:
+                score += min(spam_count * 0.2, 0.5)  # Higher weight for spam in bio
+                red_flags.append(f"Bio contains {spam_count} spam/promotional patterns")
+
+            # Check for suspicious link patterns
+            import re
+            link_pattern = r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+            links = re.findall(link_pattern, bio_text)
+
+            # Telegram links are especially suspicious for adult content bots
+            telegram_links = [link for link in links if 't.me' in link.lower() or 'telegram' in link.lower()]
+            if telegram_links:
+                score += 0.5  # Very high score for Telegram links (often adult/spam)
+                red_flags.append(f"Bio contains Telegram link (common spam indicator)")
+            elif len(links) > 0:
+                score += 0.3  # Links in bio are often spam/bot indicators
+                red_flags.append(f"Bio contains {len(links)} link(s)")
+
+            # Comprehensive sex bot emoji detection
+            sex_emojis = {
+                '🍑': 'peach',      # butt
+                '🍆': 'eggplant',   # penis
+                '🍒': 'cherries',   # breasts
+                '💦': 'sweat',      # sexual fluids
+                '👅': 'tongue',     # oral
+                '🔞': 'underage',   # age restriction
+                '💋': 'kiss',       # sexual
+                '🔥': 'fire',       # hot/sexy
+                '😈': 'devil',      # naughty
+                '🥵': 'hot face',   # aroused
+                '😏': 'smirk',      # suggestive
+                '🤤': 'drool',      # desire
+                '💸': 'money',      # selling
+                '💰': 'money bag',  # selling
+                '💵': 'dollar',     # selling
+                '🎥': 'camera',     # content
+                '📸': 'camera',     # content
+                '🔗': 'link',       # external content
+                '👙': 'bikini',     # sexual
+                '💃': 'dancer',     # often used by sex workers
+                '🍓': 'strawberry', # sweet/sexual
+                '🍌': 'banana',     # penis
+                '🌶️': 'hot pepper', # spicy/sexual
+                '💎': 'diamond',    # premium content
+            }
+
+            # Count sex-related emojis
+            emoji_count = sum(1 for emoji in sex_emojis.keys() if emoji in bio_text)
+            if emoji_count > 0:
+                emoji_score = min(emoji_count * 0.15, 0.6)  # Up to 0.6 for multiple emojis
+                score += emoji_score
+                found_emojis = [sex_emojis[e] for e in sex_emojis.keys() if e in bio_text]
+                red_flags.append(f"Bio contains {emoji_count} adult/suggestive emoji(s): {', '.join(found_emojis[:3])}")
+
+            # Comprehensive adult/sex-related keywords
+            sex_keywords = [
+                # Adult platforms
+                'onlyfans', 'only fans', 'of link', 'fansly', 'manyvids', 'pornhub',
+                # Age/content warnings
+                'nsfw', '18+', '21+', 'adult content', 'xxx', 'mature content',
+                # Selling/payment
+                'premium snap', 'premium content', 'cashapp', 'venmo', 'paypal.me',
+                'dm for', 'selling', 'sell content', 'buy content', '$', 'tip me',
+                'subscribe', 'subscription', 'exclusive content', 'private content',
+                # Sexual terms
+                'nudes', 'nude', 'sexy', 'hot pics', 'spicy', 'kinky', 'fetish',
+                'cam girl', 'camgirl', 'webcam', 'live show', 'video call',
+                # Promotional
+                'link in bio', 'check bio', 'see bio', 'full video', 'more content',
+                'free trial', 'limited time', 'vip', 'exclusive access',
+                # Common phrases
+                'dm me', 'message me', 'text me', 'hmu', 'hit me up',
+                'come play', 'lets play', 'wanna play', 'available now',
+            ]
+
+            sex_count = sum(1 for keyword in sex_keywords if keyword.lower() in bio_text.lower())
+            if sex_count > 0:
+                keyword_score = min(sex_count * 0.2, 0.6)  # Up to 0.6 for multiple keywords
+                score += keyword_score
+                red_flags.append(f"Bio contains {sex_count} adult/selling keyword(s)")
+
+            # Check for pointing down emojis + link (classic spam pattern)
+            pointing_emojis = ['👇', '⬇️', '⬇', '👉']
+            pointing_count = sum(bio_text.count(emoji) for emoji in pointing_emojis)
+            if pointing_count >= 2 and len(links) > 0:
+                score += 0.3
+                red_flags.append(f"Bio has {pointing_count} pointing emojis + link (spam pattern)")
+
+            # Check if bio is suspiciously short (common in bots)
+            word_count = len(bio_text.split())
+            if word_count < 5 and (len(links) > 0 or emoji_count > 2):
+                score += 0.2
+                red_flags.append("Very short bio with link/emojis (spam pattern)")
+
+            # Cap score
+            score = min(score, 1.0)
+
+            explanation = f"No posts available. Analyzed bio only ({word_count} words). "
+            if red_flags:
+                explanation += f"Concerns: {', '.join(red_flags)}."
+            else:
+                explanation += "Bio appears normal."
+
+            return TextAnalysisResult(
+                sample_posts=[],
+                avg_perplexity=0.0,
+                repetitive_content=False,
+                score=score,
+                explanation=explanation
+            )
+
+        except Exception as e:
+            logger.error(f"Bio analysis error: {e}")
+            return TextAnalysisResult(
+                sample_posts=[],
+                avg_perplexity=0.0,
+                repetitive_content=False,
+                score=0.5,
+                explanation="Failed to analyze bio"
+            )
+
+    def _generate_text_explanation(self, num_posts: int, avg_length: float,
                                  vocab_diversity: float, red_flags: List[str]) -> str:
         """Generate human-readable explanation of text analysis"""
-        
+
         explanation = f"Analyzed {num_posts} original posts with average length {avg_length:.1f} words. "
         explanation += f"Vocabulary diversity: {vocab_diversity:.1%}. "
-        
+
         if not red_flags:
             explanation += "Text patterns appear normal for human writing."
         else:
             explanation += f"Concerns: {', '.join(red_flags)}."
-        
+
         return explanation

@@ -155,8 +155,8 @@ class TestFollowAnalyzer:
         )
         
         result = await analyzer.analyze(extreme_profile)
-        
-        assert result.ratio == float('inf')  # Should handle infinite ratio
+
+        assert result.ratio == 1000.0  # Very high ratio for 0 followers (inf not JSON compliant)
         assert result.score > 0.8  # Should be very suspicious
     
     def test_is_suspicious_round_number(self, analyzer):
