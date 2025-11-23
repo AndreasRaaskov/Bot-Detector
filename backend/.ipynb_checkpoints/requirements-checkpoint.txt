@@ -1,0 +1,36 @@
+# Bot Detector Backend Requirements
+# This file lists all Python packages needed to run the bot detection API
+
+# Web framework and server
+fastapi>=0.100.0,<0.105.0 # Modern web framework for building APIs
+uvicorn[standard]>=0.23.0,<0.25.0 # ASGI server for running FastAPI applications
+pydantic>=2.5.0,<3.0.0    # Data validation and serialization (Python 3.13 compatible)
+
+# HTTP client for external API calls
+httpx>=0.25.0,<0.26.0     # Modern async HTTP client for API calls to Bluesky and LLMs
+
+# Environment variable management
+python-dotenv>=1.0.0,<2.0.0 # Load environment variables from .env files
+
+# Date and time handling
+python-dateutil>=2.8.0,<3.0.0 # Better date parsing utilities
+
+# Logging and monitoring
+python-multipart>=0.0.6,<1.0.0 # For handling file uploads (future use)
+
+# Development and testing dependencies (optional)
+pytest>=7.4.0,<8.0.0     # Testing framework
+pytest-asyncio>=0.21.0,<1.0.0 # Async testing support
+black>=23.11.0,<25.0.0    # Code formatting
+flake8>=6.1.0,<8.0.0      # Code linting
+mypy>=1.7.0,<2.0.0        # Static type checking
+
+# Optional: For running local LLMs via Ollama
+# (Ollama itself needs to be installed separately)
+# No additional Python packages needed for Ollama
+
+# Note: API keys for external services need to be configured:
+# - Bluesky: username/password for account access
+# - OpenAI: API key for GPT models
+# - Anthropic: API key for Claude models  
+# - Google: API key for Gemini models

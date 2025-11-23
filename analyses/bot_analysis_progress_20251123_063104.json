@@ -1,0 +1,117 @@
+[
+  {
+    "handle": "atimaomara.bsky.social",
+    "prompt1": {
+      "assessment": "human",
+      "confidence": 90,
+      "reasoning": "High follower count with low following ratio (0.066), diverse & contextual post content showing personal opinions, humor, and topical engagement. Consistent identity markers (political strategist, feminist) align with profile claims. Low repost rate & original content percentage suggest authentic interaction patterns."
+    },
+    "prompt2": {
+      "assessment": "human",
+      "confidence": 85,
+      "reasoning": "High follower ratio and repetitive content red flags are offset by varied conversational tone, personal anecdotes, and informal language/typos in posts. Professional bio context also supports human authenticity."
+    },
+    "prompt3": {
+      "assessment": "human",
+      "confidence": 85,
+      "reasoning": "Profile shows specific personal details (book project, past roles, bylines), reasonable follower ratio, and organic conversational patterns in posts. Low bot-like activity (0% reposts, 90% replies). Some repetitive phrasing noted but within normal human variation."
+    },
+    "prompt4": {
+      "assessment": "human",
+      "confidence": 85,
+      "reasoning": "The profile description has professional coherence with specific credentials and timeline (book due 2026, former roles). Recent posts show human-like inconsistencies: typos ('through' instead of 'threw'), contextual errors ('fire' instead of 'fyre'), varied engagement styles (sarcasm, clarification, personal confusion), and topic diversity (food, news reactions, inside jokes). The follower ratio and activity metrics align with authentic human behavior."
+    }
+  },
+  {
+    "handle": "bahnsidhe.bsky.social",
+    "prompt1": {
+      "assessment": "human",
+      "confidence": 90,
+      "reasoning": "The profile displays human-like nuances: varied emotional expressions, cultural references, personal anecdotes, and political commentary. Follower ratio (0.59) and engagement patterns (9% replies, 1% reposts) suggest organic interaction. Post content shows contextual humor, sarcasm ('Menopause Revenge Tour'), and topical responses to media ('Stephen King ruined pickles'). Low repost rate and high originality indicate authentic voice."
+    },
+    "prompt2": {
+      "assessment": "human",
+      "confidence": 85,
+      "reasoning": "The account shows strong human indicators: varied tone covering personal stories, cultural references, and humor; consistent typos/informal language ('OMG', 'rn'); emotional expressions ('\ud83e\udd23', '\ud83e\udd2e'). While the high follower ratio and promotional language in one post are red flags, the lack of repetitive content and inhuman frequency (given context) are outweighed by authentic human markers like personal experiences ('text to my mother') and inconsistent formatting."
+    },
+    "prompt3": {
+      "assessment": "ai_bot",
+      "confidence": 85,
+      "reasoning": "The profile exhibits multiple suspicious patterns: 1) The description contains disjointed phrases and non-sequiturs ('your rule of thumb is worrisome', 'IDIC', political Spanish phrase). 2) Recent posts show excessive exclamation points usage and performative enthusiasm. 3) High follower count with low following ratio suggests inorganic growth. 4) 0% original posts in activity distribution. 5) Posts contain non-contextual references (Epstein petition, Coast Guard/Cracker Barrel) with emoji clusters. 6) Unnatural phrasing like 'spiderly Thing' and 'Menopause Revenge Tour'."
+    },
+    "prompt4": {
+      "assessment": "human",
+      "confidence": 90,
+      "reasoning": "The text contains idiosyncratic expressions, cultural references (IDIC, Chinga la migra), personal anecdotes, and emotional language that align with human communication patterns. The mix of topics, informal tone, and occasional typos ('ex's contact photo') suggest organic human expression rather than AI-generated content."
+    }
+  },
+  {
+    "handle": "ultra-antifa-2.bsky.social",
+    "prompt1": {
+      "assessment": "human",
+      "confidence": 75,
+      "reasoning": "The account shows high engagement variability and personalized political commentary. While the follower ratio is slightly elevated and posting patterns are unusual (100% replies), the raw emotional tone and contextual responses to unseen conversations suggest human operation. The lack of reposts/originals is atypical but consistent with a reply-focused human account."
+    },
+    "prompt2": {
+      "assessment": "human",
+      "confidence": 75,
+      "reasoning": "The account exhibits strong personal opinions, varied tone in posts, informal language including profanity and typos ('otoh', 'dumber than a sack of rocks'), and context-specific arguments. The following/follower ratio is balanced (0.76) and posting frequency isn't specified as excessive. While highly political and repetitive in themes, the linguistic diversity suggests human authorship."
+    },
+    "prompt3": {
+      "assessment": "ai_bot",
+      "confidence": 85,
+      "reasoning": "The profile exhibits combative engagement, formulaic political rhetoric, and abrupt topic shifts without context, consistent with AI-generated divisive content."
+    },
+    "prompt4": {
+      "assessment": "human",
+      "confidence": 85,
+      "reasoning": "The profile exhibits strong political opinions, emotional language, and contextual inconsistencies that align more with human expression than AI generation patterns. Recent posts contain slang, personal insults, and topic-specific references that lack the structural coherence typical of AI output."
+    }
+  },
+  {
+    "handle": "northernrednekk.bsky.social",
+    "prompt1": {
+      "assessment": "human",
+      "confidence": 95,
+      "reasoning": "Profile exhibits high originality with consistent sarcasm and political commentary, shows natural follower ratio growth, and displays contextual awareness in diverse post topics that require human nuance. No repetitive patterns or bot-like metrics."
+    },
+    "prompt2": {
+      "assessment": "human",
+      "confidence": 80,
+      "reasoning": "The account shows strong personal voice with sarcasm and political opinions, admits to humor preferences, and uses informal language with typos. While the high follower ratio and promotional tone are red flags, the varied content and autobiographical description outweigh them."
+    },
+    "prompt3": {
+      "assessment": "ai_bot",
+      "confidence": 75,
+      "reasoning": "Profile exhibits multiple bot indicators: high follower count with low engagement ratio, unusual topic shifts in recent posts (conspiracies to sexual humor to politics), inflammatory language targeting specific groups, and overly explanatory description with awkward phrasing ('Boomer still trying to raise myself'). Lack of reposts/originals coupled with combative tone suggests engagement farming."
+    },
+    "prompt4": {
+      "assessment": "human",
+      "confidence": 95,
+      "reasoning": "The profile description and recent posts contain authentic human traits: self-deprecating humor ('Boomer still trying to raise myself'), contextual political commentary with specific references (Epstein timeline, Reagan policies), inconsistent formatting (mix of proper grammar and lowercase), and raw emotional expressions ('ignorant racist'). The sarcasm is organic and references contemporary events naturally without AI's typical neutrality."
+    }
+  },
+  {
+    "handle": "halfpintptbo.bsky.social",
+    "prompt1": {
+      "assessment": "human",
+      "confidence": 90,
+      "reasoning": "The profile shows authentic human characteristics: varied emotional expression, personal opinions, humor, and contextual references to real-world issues. The follower ratio is near-balanced, and post content includes sarcasm, political views, and personal experiences inconsistent with typical bot behavior."
+    },
+    "prompt2": {
+      "assessment": "ai_bot",
+      "confidence": 85,
+      "reasoning": "high following/follower ratio near 1:1, extremely low original content (0% originals), repetitive promotional tone in posts, but offset by slight informality in some posts"
+    },
+    "prompt3": {
+      "assessment": "ai_bot",
+      "confidence": 85,
+      "reasoning": "Discrepancy in post percentages (originals 0% but recent posts show originals), excessive hashtags/emojis, unusual follower ratio and combative political stance inconsistent with described attributes."
+    },
+    "prompt4": {
+      "assessment": "human",
+      "confidence": 85,
+      "reasoning": "The profile shows authentic personal details, humor, and political opinions that align with human expression. The recent posts contain spontaneous reactions and varied topics consistent with human behavior."
+    }
+  }
+]

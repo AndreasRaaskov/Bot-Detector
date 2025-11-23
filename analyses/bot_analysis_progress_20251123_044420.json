@@ -1,0 +1,117 @@
+[
+  {
+    "handle": "snickersnacker.bsky.social",
+    "prompt1": {
+      "assessment": "ai_bot",
+      "confidence": 90,
+      "reasoning": "Extremely high following-follower ratio suggests inorganic growth, near-zero original content creation combined with high political hashtag density in description, and repetitive post patterns indicate algorithmic behavior."
+    },
+    "prompt2": {
+      "assessment": "human",
+      "confidence": 85,
+      "reasoning": "Despite high following/follower ratio and promotional language in bio, the account shows strong human indicators: varied tone in posts, personal experiences shared (e.g., 'female senior citizen', 'Breast Cancer survivor'), typos ('sheb'), informal language, and occasional emotional expressions. Repetitive content appears topic-specific rather than automated."
+    },
+    "prompt3": {
+      "assessment": "ai_bot",
+      "confidence": 85,
+      "reasoning": "Overloaded description with hashtags and emojis, high following with low engagement ratio, repetitive posts, and combative political tone without nuanced discussion."
+    },
+    "prompt4": {
+      "assessment": "human",
+      "confidence": 90,
+      "reasoning": "The profile exhibits natural inconsistencies (e.g., varied post styles, personal details like 'Fur babies and my challenged sister'), political authenticity with specific references, and organic hashtag usage. The repetition in recent posts appears human (frustration/emphasis) rather than algorithmic."
+    }
+  },
+  {
+    "handle": "mifterchip.bsky.social",
+    "prompt1": {
+      "assessment": "ai_bot",
+      "confidence": 95,
+      "reasoning": "All 10 recent posts are identical YouTube shorts links with no original content, replies, or reposts. Following-to-follower ratio (1.78) indicates aggressive following behavior. Zero original/repost content combined with identical spam-like posts strongly suggests automation."
+    },
+    "prompt2": {
+      "assessment": "ai_bot",
+      "confidence": 95,
+      "reasoning": "Extremely high following/follower ratio (1.78), 100% identical repetitive content (YouTube shorts links), 0% original/reply/repost engagement, promotional language in description, and inhuman posting frequency of identical links."
+    },
+    "prompt3": {
+      "assessment": "ai_bot",
+      "confidence": 95,
+      "reasoning": "Highly repetitive posting behavior (10 identical YouTube shorts links in recent posts) combined with 0% original content and 0% reposts suggests automated content generation."
+    },
+    "prompt4": {
+      "assessment": "ai_bot",
+      "confidence": 95,
+      "reasoning": "The recent_posts array contains 10 identical YouTube shorts URLs, which is highly unusual for human behavior. The profile description is minimal ('Never trump') and engagement metrics show 0% original posts/reposts with only replies, suggesting bot-like activity."
+    }
+  },
+  {
+    "handle": "blue-barbie.bsky.social",
+    "prompt1": {
+      "assessment": "ai_bot",
+      "confidence": 92,
+      "reasoning": "Low followers ratio (0.47), high following count (2052), high reposts percentage (7%) with 0% original content, and posts showing inconsistent quality including empty strings and non-sequiturs."
+    },
+    "prompt2": {
+      "assessment": "human",
+      "confidence": 75,
+      "reasoning": "The account shows varied tone, personal anecdotes (mother's hospital experience), informal language/typos ('jojned'), and inconsistent posting patterns. While the following ratio is high, the content lacks the robotic consistency typical of bots. Political engagement and emotional expressions align with human behavior."
+    },
+    "prompt3": {
+      "assessment": "ai_bot",
+      "confidence": 90,
+      "reasoning": "Description contains excessive emojis and non-sequitur country flags. Recent posts show erratic topic shifts, empty entries, and combative political phrases. Extremely low original content (0%) with high repost rate."
+    },
+    "prompt4": {
+      "assessment": "human",
+      "confidence": 95,
+      "reasoning": "The profile shows personal anecdotes, emotional expressions, political opinions, and inconsistent posting patterns that are atypical for AI. The content includes cultural references, humor, and real-world interactions that suggest authentic human experience."
+    }
+  },
+  {
+    "handle": "shieldmaiden7.bsky.social",
+    "prompt1": {
+      "assessment": "human",
+      "confidence": 95,
+      "reasoning": "Profile exhibits high follower count variability and human-like engagement patterns. Content shows personal opinions, political stance variations, and conversational tone. Low replies/reposts percentages suggest authentic interaction patterns inconsistent with typical bot behavior. Erratic post topics (politics, personal anecdotes) and emotional language indicate human authorship."
+    },
+    "prompt2": {
+      "assessment": "human",
+      "confidence": 85,
+      "reasoning": "Varied tone and personal experiences in posts offset high following ratio and promotional language. Typos/informal language reinforce human-like behavior despite some repetitive content."
+    },
+    "prompt3": {
+      "assessment": "ai_bot",
+      "confidence": 70,
+      "reasoning": "High following count with low engagement ratio, unusual post patterns including empty posts, and inconsistent topic focus without personal context suggest automation."
+    },
+    "prompt4": {
+      "assessment": "human",
+      "confidence": 90,
+      "reasoning": "The profile includes personal opinions, specific political stances, and nuanced language (e.g., 'Kindness is a superpower, but DO NOT mistake my kindness for weakness') that reflect human individuality. The description has authentic idiosyncrasies and emotional depth uncommon in AI-generated profiles, and the recent posts show varied topics with informal phrasing."
+    }
+  },
+  {
+    "handle": "fedup90611.bsky.social",
+    "prompt1": {
+      "assessment": "ai_bot",
+      "confidence": 65,
+      "reasoning": "Unusually high following (31361) and followers (34959) counts with an artificial ratio close to 1.0 (0.897). Low original content rate (1.01%) with high percentage of empty posts (20% of recent samples). Generic political content with repetitive themes and minimal personal details."
+    },
+    "prompt2": {
+      "assessment": "ai_bot",
+      "confidence": 85,
+      "reasoning": "Extremely high following/follower count with unusual ratio, inhuman posting frequency indicated by 10 posts in very short timeframe, and high proportion of empty/repetitive content"
+    },
+    "prompt3": {
+      "assessment": "ai_bot",
+      "confidence": 85,
+      "reasoning": "The profile exhibits multiple bot-like characteristics: following-to-follower ratio near 1 with extremely high counts (31k+/34k+), very low original content (1%), high repost/reply rates, and posts showing divisive political engagement. The description includes excessive disclaimers (no DMs, political stance) which is common in bot profiles. Recent posts contain both empty content and combative/oversimplified political statements."
+    },
+    "prompt4": {
+      "assessment": "human",
+      "confidence": 85,
+      "reasoning": "The profile shows personal details (caregiving, specific interests), inconsistent post patterns (empty posts, varied topics), and authentic language quirks ('STOP BUYING THEIR SHIT'). AI tends to avoid empty content and maintain thematic consistency."
+    }
+  }
+]
