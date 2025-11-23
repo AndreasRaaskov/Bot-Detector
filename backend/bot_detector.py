@@ -218,8 +218,9 @@ class BotDetector:
                 post_texts = [post.text for post in posts if post.text and not post.is_repost]
                 tasks.append(
                     self.llm_analyzer.analyze_content(
-                        post_texts, 
-                        profile.description or ""
+                        post_texts,
+                        profile.description or "",
+                        preferred_provider=self.config.preferred_llm_provider
                     )
                 )
             else:
