@@ -421,12 +421,6 @@ body {
     }
 }
 
-@media (min-width: 1024px) {
-    .team-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
 .team-card {
     background-color: var(--card);
     border: 1px solid var(--border);
