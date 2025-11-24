@@ -18,8 +18,8 @@ Bot Detector combines multiple analysis methods to identify potential bot accoun
 ## 👥 Team
 
 **Human Team Members:**
-- **Technical**: Andreas (MS.c Human-Centered AI), Mitali (BA Computer Science)  
-- **Policy**: Matt, Clare
+Andreas
+Matt
 
 **AI Team Members:**
 - **Backend**: Claude Code
