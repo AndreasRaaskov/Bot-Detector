@@ -490,6 +490,12 @@ body {
     height: 1rem;
 }
 
+/* AI Info Section */
+.ai-info-section {
+    padding: 2rem 1rem;
+    background-color: hsla(210, 40%, 98%, 0.3);
+}
+
 .ai-team {
     text-align: center;
     font-size: 0.875rem;
